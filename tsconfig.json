@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "module": "ES6",
+    "moduleResolution": "node",
+    "target": "ES6",
+    "sourceMap": false,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
+    "allowSyntheticDefaultImports": true,
+    "preserveConstEnums": true,
+    "suppressImplicitAnyIndexErrors":false,
+    "allowJs": false,
+    "removeComments": true,
+    "declaration":false,
+    "outDir":"build/es6/",
+    "rootDir":"src/"
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

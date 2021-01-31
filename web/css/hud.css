@@ -1,0 +1,66 @@
+/* Modify me for different cooldown speed! */
+/* Modify me for a different cooldown color! */
+/* Modify me to be 'infinite' or a number! */
+@-webkit-keyframes anim-cooldown-inner {
+  from {
+    background: rgba(0, 0, 0, 0.6); }
+  to {
+    background: rgba(0, 0, 0, 0); } }
+
+@-webkit-keyframes anim-cooldown {
+  from {
+    background-size: 46px 0px; }
+  to {
+    background-size: 46px 46px; } }
+
+#hud {
+  position: relative;
+  left: 50%;
+  margin-left: -106px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  background: #eee;
+  width: 212px;
+  height: 62px;
+  z-index: -2; }
+
+.icon {
+  border: 1px solid #222;
+  width: 40px;
+  height: 40px;
+  background: #eee;
+  float: left;
+  margin-top: 10px;
+  margin-left: 10px;
+  position: relative;
+  background: #ccc;
+  background-size: 36px 36px;
+  background-position: 3px 3px;
+  background-repeat: no-repeat;
+  border-radius: 4px; }
+
+.icon:before {
+  content: "";
+  width: 46px;
+  height: 46px;
+  position: absolute;
+  left: -4px;
+  top: -4px;
+  z-index: -1;
+  background-color: #fff;
+  border-radius: 4px; }
+
+.icon.full:before {
+  background-image: -webkit-linear-gradient(bottom, #00358d 0%, #00358d 100%); }
+
+.icon.cooldown:before {
+  background-color: #fff;
+  background-image: -webkit-linear-gradient(bottom, #00358d 0%, #00358d 100%);
+  background-size: 46px 46px;
+  background-position: 0px 100%;
+  background-repeat: no-repeat; }
+
+.icon.animation:before {
+  -webkit-animation: anim-cooldown 0.5s linear 1; }
+
+/*# sourceMappingURL=hud.css.map */
