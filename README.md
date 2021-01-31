@@ -1,10 +1,24 @@
+[![License: MIT](https://img.shields.io/npm/l/@dwtechs/ctrltab.svg?color=brightgreen)](https://opensource.org/licenses/MIT)
+[![npm version](https://badge.fury.io/js/%40dwtechs%2Fctrltab.svg)](https://www.npmjs.com/package/@dwtechs/ctrltab)
+[![last version release date](https://img.shields.io/github/release-date/DWTechs/CtrlTab.js)](https://www.npmjs.com/package/@dwtechs/ctrltab)
+![Jest:coverage](https://img.shields.io/badge/Jest:coverage-100%25-brightgreen.svg)
+[![minified size](https://img.shields.io/bundlephobia/min/@dwtechs/ctrltab?color=brightgreen)](https://www.npmjs.com/package/@dwtechs/ctrltab)
+
+- [Synopsis](#synopsis)
+- [Installation](#installation)
+  - [npm](#npm)
+  - [Yarn](#yarn)
+- [Usage](#usage)
+  - [ES6](#es6)
+  - [IIFE](#iife)
+- [API Reference](#api-reference)
+- [Contributors](#contributors)
+- [License](#license)
+- [Stack](#stack)
+
 ## Synopsis
 
 CtrlTab.js is a shortcut key bindings library with multiple keystroke detection.
-
-## Motivation
-
-The purpose of this library is to provide a simple and easy to use key binding declaration.
 
 ## Installation
 
@@ -124,6 +138,11 @@ default(groupName: string, commandName: string): boolean {} //set command to def
 getCommand(groupName: string, commandName: string): Command | null {}
 
 ```
+
+## Contributors
+
+CtrlTab.js is still in development and we would be glad to get all the help you can provide.
+To contribute please read **[contributor.md](https://github.com/DWTechs/CtrlTab.js/blob/main/contributor.md)** for detailed installation guide.
 
 ## Stack
 
