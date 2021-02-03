@@ -3,7 +3,9 @@
   "version": "2.3.0",
   "description": "Shortcut key bindings library with multiple keystroke detection.",
   "keywords": [
-    "key binding"
+    "key binding",
+    "keystroke",
+    "shortcuts"
   ],
   "homepage": "https://github.com/DWTechs/CtrlTab.js",
   "main": "dist/ctrltab",

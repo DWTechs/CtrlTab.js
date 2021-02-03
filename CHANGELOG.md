@@ -1,4 +1,4 @@
-# 2.3.0 (January 16th 2021)
+# 2.3.0 (January 04th 2021)
 
 - Krait.js becomes CtrlTab.js 
 - Project transfered from LCluber to DWTechs
