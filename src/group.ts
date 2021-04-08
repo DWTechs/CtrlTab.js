@@ -7,8 +7,8 @@ export class Group {
   public watch: boolean;
   private commands: Command[];
 
-  constructor(name: string) {
-    this.name = name;
+  constructor(name: string = 'default') {
+    this.name = name ;
     this.commands = [];
     this.watch = false;
   }
@@ -29,7 +29,7 @@ export class Group {
     }
   }
 
-  public addCommand(
+  public addCmd(
     name: string,
     ctrlKeys: CtrlKeys | null,
     keys: Array<string | number>,
@@ -38,7 +38,7 @@ export class Group {
   ): Command {
     let command = new Command(name, ctrlKeys, keys, callback, options);
     this.commands.push(command);
-    this.commands = Group.sortCommands(this.commands);
+    this.commands = Group.sortCmds(this.commands);
     return command;
   }
 
@@ -47,26 +47,26 @@ export class Group {
     ctrlKeys: CtrlKeys,
     keys: Array<string | number>
   ): boolean {
-    let command = this.getCommand(name);
+    let command = this.getCmd(name);
     if (command) {
       command.setInputs(ctrlKeys, keys);
-      this.commands = Group.sortCommands(this.commands);
+      this.commands = Group.sortCmds(this.commands);
       return true;
     }
     return false;
   }
 
   public default(name: string): boolean {
-    let command = this.getCommand(name);
+    let command = this.getCmd(name);
     if (command) {
       command.default();
-      this.commands = Group.sortCommands(this.commands);
+      this.commands = Group.sortCmds(this.commands);
       return true;
     }
     return false;
   }
 
-  public getCommand(name: string): Command | null {
+  public getCmd(name: string): Command | null {
     for (let command of this.commands) {
       if (command.name == name) {
         return command;
@@ -80,7 +80,7 @@ export class Group {
   //   return command ? command.getInputsAscii() : false;
   // }
 
-  private static sortCommands(commands: Command[]): Command[] {
+  private static sortCmds(commands: Command[]): Command[] {
     commands.sort(function(a, b) {
       return b.inputs.length - a.inputs.length;
     });

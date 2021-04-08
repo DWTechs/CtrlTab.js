@@ -9,6 +9,7 @@ export class Command {
   public inputs: Inputs;
   public defaultInputs: DefaultInputs;
   private pressed: boolean;
+  private repeat: boolean;
   // private options: Options;
   // private static log: Group;
 
@@ -24,27 +25,23 @@ export class Command {
     let asciiCodes = Command.getAsciiCodes(keys);
     if (asciiCodes) {
       this.defaultInputs = new DefaultInputs(ctrlKeys, asciiCodes);
-      let preventDefault =
-        options &&
-        options.hasOwnProperty("preventDefault") &&
-        options.preventDefault
-          ? true
-          : false;
       this.inputs = new Inputs(
         this.defaultInputs.ctrlKeys,
         asciiCodes,
-        preventDefault
+        options?.preventDefault ? true : false
       );
+      this.repeat = options?.repeat ? true : false;
       this.callback = callback;
       if (options && options.hasOwnProperty("scope")) {
         this.callback = this.callback.bind(options.scope);
       }
-      // Command.log = Logger.addGroup("Krait");
-      // Command.log.info("Added new command " + this.name);
     }
   }
 
   public start(a: KeyboardEvent): boolean {
+    if (!this.repeat && this.pressed) {
+      return false;
+    }
     if (this.inputs.start(a)) {
       this.pressed = true;
       this.callback(this.pressed);
@@ -54,7 +51,7 @@ export class Command {
   }
 
   public stop(key: number): boolean {
-    if (this.inputs.stop(key) && this.pressed) {
+    if (this.pressed && this.inputs.stop(key)) {
       this.pressed = false;
       this.callback(this.pressed);
       return true;

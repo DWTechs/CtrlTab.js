@@ -184,8 +184,8 @@ var Command = /*#__PURE__*/function () {
 
     if (asciiCodes) {
       this.defaultInputs = new DefaultInputs(ctrlKeys, asciiCodes);
-      var preventDefault = options && options.hasOwnProperty("preventDefault") && options.preventDefault ? true : false;
-      this.inputs = new Inputs(this.defaultInputs.ctrlKeys, asciiCodes, preventDefault);
+      this.inputs = new Inputs(this.defaultInputs.ctrlKeys, asciiCodes, (options === null || options === void 0 ? void 0 : options.preventDefault) ? true : false);
+      this.repeat = (options === null || options === void 0 ? void 0 : options.repeat) ? true : false;
       this.callback = callback;
 
       if (options && options.hasOwnProperty("scope")) {
@@ -197,6 +197,10 @@ var Command = /*#__PURE__*/function () {
   var _proto = Command.prototype;
 
   _proto.start = function start(a) {
+    if (!this.repeat && this.pressed) {
+      return false;
+    }
+
     if (this.inputs.start(a)) {
       this.pressed = true;
       this.callback(this.pressed);
@@ -207,7 +211,7 @@ var Command = /*#__PURE__*/function () {
   };
 
   _proto.stop = function stop(key) {
-    if (this.inputs.stop(key) && this.pressed) {
+    if (this.pressed && this.inputs.stop(key)) {
       this.pressed = false;
       this.callback(this.pressed);
       return true;
@@ -271,6 +275,10 @@ var Command = /*#__PURE__*/function () {
 
 var Group = /*#__PURE__*/function () {
   function Group(name) {
+    if (name === void 0) {
+      name = 'default';
+    }
+
     this.name = name;
     this.commands = [];
     this.watch = false;
@@ -296,19 +304,19 @@ var Group = /*#__PURE__*/function () {
     }
   };
 
-  _proto.addCommand = function addCommand(name, ctrlKeys, keys, callback, options) {
+  _proto.addCmd = function addCmd(name, ctrlKeys, keys, callback, options) {
     var command = new Command(name, ctrlKeys, keys, callback, options);
     this.commands.push(command);
-    this.commands = Group.sortCommands(this.commands);
+    this.commands = Group.sortCmds(this.commands);
     return command;
   };
 
   _proto.setInputs = function setInputs(name, ctrlKeys, keys) {
-    var command = this.getCommand(name);
+    var command = this.getCmd(name);
 
     if (command) {
       command.setInputs(ctrlKeys, keys);
-      this.commands = Group.sortCommands(this.commands);
+      this.commands = Group.sortCmds(this.commands);
       return true;
     }
 
@@ -316,18 +324,18 @@ var Group = /*#__PURE__*/function () {
   };
 
   _proto["default"] = function _default(name) {
-    var command = this.getCommand(name);
+    var command = this.getCmd(name);
 
     if (command) {
       command["default"]();
-      this.commands = Group.sortCommands(this.commands);
+      this.commands = Group.sortCmds(this.commands);
       return true;
     }
 
     return false;
   };
 
-  _proto.getCommand = function getCommand(name) {
+  _proto.getCmd = function getCmd(name) {
     for (var _iterator3 = _createForOfIteratorHelperLoose(this.commands), _step3; !(_step3 = _iterator3()).done;) {
       var command = _step3.value;
 
@@ -339,7 +347,7 @@ var Group = /*#__PURE__*/function () {
     return null;
   };
 
-  Group.sortCommands = function sortCommands(commands) {
+  Group.sortCmds = function sortCmds(commands) {
     commands.sort(function (a, b) {
       return b.inputs.length - a.inputs.length;
     });
@@ -383,7 +391,7 @@ var Keyboard = /*#__PURE__*/function () {
     }
   };
 
-  _proto.watch = function watch(groupName) {
+  _proto.listen = function listen(groupName) {
     var group = this.getGroup(groupName);
 
     if (group) {
@@ -403,15 +411,16 @@ var Keyboard = /*#__PURE__*/function () {
     return true;
   };
 
-  _proto.addCommand = function addCommand(groupName, commandName, ctrlKeys, keys, callback, scope) {
-    var group = this.getGroup(groupName);
+  _proto.addCmd = function addCmd(commandName, ctrlKeys, keys, callback, options) {
+    var group = (options === null || options === void 0 ? void 0 : options.groupName) && this.getGroup(options === null || options === void 0 ? void 0 : options.groupName);
 
     if (!group) {
-      group = new Group(groupName);
+      group = new Group(options === null || options === void 0 ? void 0 : options.groupName);
       this.groups.push(group);
     }
 
-    return group.addCommand(commandName, ctrlKeys, keys, callback, scope);
+    options === null || options === void 0 ? true : delete options.groupName;
+    return group.addCmd(commandName, ctrlKeys, keys, callback, options);
   };
 
   _proto.setInputs = function setInputs(groupName, commandName, ctrlKeys, keys) {
@@ -428,7 +437,7 @@ var Keyboard = /*#__PURE__*/function () {
     for (var _iterator3 = _createForOfIteratorHelperLoose(this.groups), _step3; !(_step3 = _iterator3()).done;) {
       var group = _step3.value;
 
-      if (group.name == name) {
+      if (group.name === name) {
         return group;
       }
     }
@@ -436,9 +445,9 @@ var Keyboard = /*#__PURE__*/function () {
     return null;
   };
 
-  _proto.getCommand = function getCommand(groupName, commandName) {
+  _proto.getCmd = function getCmd(groupName, commandName) {
     var group = this.getGroup(groupName);
-    return group ? group.getCommand(commandName) : null;
+    return group ? group.getCmd(commandName) : null;
   };
 
   return Keyboard;

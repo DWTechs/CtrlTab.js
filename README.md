@@ -43,16 +43,18 @@ import { Keyboard } from "@dwtechs/ctrltab";
 
 let keyboard = new Keyboard();
 
-keyboard.addCommand("group1", "action0", null, [32], action0, {
-  preventDefault: true
+keyboard.addCmd("action0", null, [32], action0, {
+  preventDefault: true,
+  groupName: "group1",
+  repeat: true
 });
-keyboard.addCommand("group1", "action1", { ctrl: true }, ["G"], action1, null);
+keyboard.addCmd("action1", { ctrl: true }, ["G"], action1, {groupName: "group1"});
 // set another key for action1
 keyboard.setInputs(
-  "group1",
   "action1",
   { ctrl: false, alt: false, shift: false },
-  ["Z", "T"]
+  ["Z", "T"],
+  {groupName: "group1"}
 );
 // Enable group1 commands
 keyboard.watch("group1");
@@ -75,16 +77,17 @@ function action1(isKeyDown) {
 ```javascript
 var keyboard = new Krait.Keyboard();
 
-keyboard.addCommand("group1", "action0", null, [32], action0, {
-  preventDefault: true
+keyboard.addCmd("action0", null, [32], action0, {
+  preventDefault: true,
+  groupName: "group1"
 });
-keyboard.addCommand("group1", "action1", { ctrl: true }, ["G"], action1, null);
+keyboard.addCmd("action1", { ctrl: true }, ["G"], action1, {groupName: "group1"});
 // set another key for action1
 keyboard.setInputs(
-  "group1",
   "action1",
   { ctrl: false, alt: false, shift: false },
-  ["Z", "T"]
+  ["Z", "T"],
+  {groupName: "group1"}
 );
 // Enable group1 commands
 keyboard.watch("group1");
@@ -112,11 +115,13 @@ interface CtrlKeys {
 }
 
 interface Options {
-  preventDefault?: boolean;
+  preventDefault?: boolean; // default to false
+  groupName?: string; // default to "default"
   scope?: this;
+  repeat?: boolean; // default to false
 }
 
-addCommand(
+addCmd(
     name: string,
     ctrlKeys: CtrlKeys | null,
     keys: Array<string | number>,
@@ -129,13 +134,13 @@ setInputs(
     keys: Array<string | number>
   ): boolean {}
 
-watch(groupName: string): boolean {} //start watching a group of commands
+listen(groupName: string): boolean {} //start watching a group of commands
 
 ignore(groupName: string): boolean {} //stop watching a group of commands
 
 default(groupName: string, commandName: string): boolean {} //set command to default settings
 
-getCommand(groupName: string, commandName: string): Command | null {}
+getCmd(groupName: string, commandName: string): Command | null {}
 
 ```
 

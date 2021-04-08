@@ -8,34 +8,33 @@ var icon3 = findById("skill3");
 
 var keyboard = new CtrlTab.Keyboard();
 
-keyboard.addCommand("group1", "action0", { ctrl: true }, [65], action0, {
-  preventDefault: true
+keyboard.addCmd("action0", { ctrl: true }, [65], action0, {
+  preventDefault: true,
+  repeat: true,
+  groupName: "group1"
 });
-keyboard.addCommand("group1", "action1", null, ["G"], action1, null);
+keyboard.addCmd("action1", null, ["G"], action1, {groupName: "group1"});
 keyboard.setInputs(
   "group1",
   "action1",
   { ctrl: false, alt: false, shift: false },
   ["Z"]
 );
-keyboard.addCommand(
-  "group2",
+keyboard.addCmd(
   "action2",
   { ctrl: false, alt: false, shift: false },
   ["E"],
-  action2,
-  null
+  action2
 );
-keyboard.addCommand(
-  "group1",
+keyboard.addCmd(
   "action3",
   { ctrl: false, alt: false, shift: false },
   ["R", "T"],
   action3,
-  null
+  {groupName: "group1"}
 );
-keyboard.watch("group1");
-keyboard.watch("group2");
+keyboard.listen("group1");
+keyboard.listen("default");
 
 function action0(isKeyDown) {
   if (isKeyDown) {

@@ -1,6 +1,6 @@
 import { Group } from "./group";
 import { Command } from "./command";
-import { CtrlKeys } from "./interfaces";
+import { CtrlKeys, Options } from "./interfaces";
 
 export class Keyboard {
   private groups: Group[];
@@ -32,7 +32,7 @@ export class Keyboard {
     }
   }
 
-  public watch(groupName: string): boolean {
+  public listen(groupName: string): boolean {
     let group = this.getGroup(groupName);
     if (group) {
       return (group.watch = true);
@@ -48,20 +48,20 @@ export class Keyboard {
     return true;
   }
 
-  public addCommand(
-    groupName: string,
+  public addCmd(
     commandName: string,
     ctrlKeys: CtrlKeys,
     keys: Array<string | number>,
     callback: Function,
-    scope: any
+    options: Options
   ): Command {
-    let group = this.getGroup(groupName);
+    let group = options?.groupName && this.getGroup(options?.groupName);
     if (!group) {
-      group = new Group(groupName);
+      group = new Group(options?.groupName);
       this.groups.push(group);
     }
-    return group.addCommand(commandName, ctrlKeys, keys, callback, scope);
+    delete options?.groupName;
+    return group.addCmd(commandName, ctrlKeys, keys, callback, options);
   }
 
   public setInputs(
@@ -81,16 +81,16 @@ export class Keyboard {
 
   public getGroup(name: string): Group | null {
     for (let group of this.groups) {
-      if (group.name == name) {
+      if (group.name === name) {
         return group;
       }
     }
     return null;
   }
 
-  public getCommand(groupName: string, commandName: string): Command | null {
+  public getCmd(groupName: string, commandName: string): Command | null {
     let group = this.getGroup(groupName);
-    return group ? group.getCommand(commandName) : null;
+    return group ? group.getCmd(commandName) : null;
   }
 
   // public getCommandInputsAscii(

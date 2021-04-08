@@ -1,3 +1,9 @@
+# 2.4.0 (April 09th 2021)
+
+- Shorter methods name (addCmd, setCmd )
+- GroupName becomes an option property and default to "default"
+- Repeat is a new option property and default to false. If true, trigger will repeat when you keep pressing a command.
+
 # 2.3.0 (February 05th 2021)
 
 - Krait.js becomes CtrlTab.js 

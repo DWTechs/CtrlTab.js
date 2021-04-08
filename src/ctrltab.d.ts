@@ -29,10 +29,10 @@ export declare class Group {
     constructor(name: string);
     down(a: KeyboardEvent): void;
     up(key: number): void;
-    addCommand(name: string, ctrlKeys: CtrlKeys | null, keys: Array<string | number>, callback: Function, options: Options | null): Command;
-    setInputs(name: string, ctrlKeys: CtrlKeys, keys: Array<string | number>): boolean;
+    addCmd(name: string, ctrlKeys: CtrlKeys | null, keys: Array<string | number>, callback: Function, options: Options | null): Command;
+    setCmd(name: string, ctrlKeys: CtrlKeys, keys: Array<string | number>): boolean;
     default(name: string): boolean;
-    getCommand(name: string): Command | null;
+    getCmd(name: string): Command | null;
     private static sortCommands;
 }
 export declare class Input {
@@ -62,7 +62,9 @@ export interface CtrlKeys {
 }
 export interface Options {
     preventDefault?: boolean;
+    groupName?: string;
     scope?: this;
+    repeat?: boolean; 
     [key: string]: boolean | this | undefined;
 }
 export interface Keys {
@@ -75,11 +77,11 @@ export declare class Keyboard {
     private initListeners;
     down(a: KeyboardEvent): void;
     up(a: KeyboardEvent): void;
-    watch(groupName: string): boolean;
+    listen(groupName: string): boolean;
     ignore(groupName: string): boolean;
-    addCommand(groupName: string, commandName: string, ctrlKeys: CtrlKeys, keys: Array<string | number>, callback: Function, scope: any): Command;
+    addCmd(commandName: string, ctrlKeys: CtrlKeys, keys: Array<string | number>, callback: Function, options: Options): Command;
     setInputs(groupName: string, commandName: string, ctrlKeys: CtrlKeys, keys: Array<string | number>): boolean;
     default(groupName: string, commandName: string): boolean;
     getGroup(name: string): Group | null;
-    getCommand(groupName: string, commandName: string): Command | null;
+    getCmd(groupName: string, commandName: string): Command | null;
 }

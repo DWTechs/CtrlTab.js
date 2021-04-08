@@ -9,8 +9,10 @@ export interface CtrlKeys {
 
 export interface Options {
   preventDefault?: boolean;
+  groupName?: string;
   scope?: this;
-  [key: string]: boolean | this | undefined;
+  repeat?: boolean;
+  [key: string]: string | boolean | this | undefined;
 }
 
 export interface Keys {
