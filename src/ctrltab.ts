@@ -80,12 +80,7 @@ export class Keyboard {
   }
 
   public getGroup(name: string): Group | null {
-    for (let group of this.groups) {
-      if (group.name === name) {
-        return group;
-      }
-    }
-    return null;
+    return this.groups.find((group: Group) => group.name === name) || null;
   }
 
   public getCmd(groupName: string, commandName: string): Command | null {

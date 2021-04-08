@@ -10,17 +10,16 @@ export class DefaultInputs {
       alt: false,
       shift: false
     };
-    this.setCtrlKeys(ctrlKeys);
+    if (ctrlKeys) {
+      this.setCtrlKeys(ctrlKeys);
+    }
     this.asciiCodes = asciiCodes;
   }
 
-  private setCtrlKeys(ctrlKeys: CtrlKeys | null): void {
+  private setCtrlKeys(ctrlKeys: CtrlKeys): void {
     for (let property in this.ctrlKeys) {
       if (this.ctrlKeys.hasOwnProperty(property)) {
-        this.ctrlKeys[property] =
-          ctrlKeys && ctrlKeys.hasOwnProperty(property) && ctrlKeys[property]
-            ? true
-            : false;
+        this.ctrlKeys[property] = ctrlKeys[property] ? true : false;
       }
     }
   }

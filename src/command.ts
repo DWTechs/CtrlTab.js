@@ -10,8 +10,6 @@ export class Command {
   public defaultInputs: DefaultInputs;
   private pressed: boolean;
   private repeat: boolean;
-  // private options: Options;
-  // private static log: Group;
 
   constructor(
     name: string,
@@ -32,7 +30,7 @@ export class Command {
       );
       this.repeat = options?.repeat ? true : false;
       this.callback = callback;
-      if (options && options.hasOwnProperty("scope")) {
+      if (options?.scope) {
         this.callback = this.callback.bind(options.scope);
       }
     }

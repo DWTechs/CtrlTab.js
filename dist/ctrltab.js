@@ -159,7 +159,11 @@ var DefaultInputs = /*#__PURE__*/function () {
       alt: false,
       shift: false
     };
-    this.setCtrlKeys(ctrlKeys);
+
+    if (ctrlKeys) {
+      this.setCtrlKeys(ctrlKeys);
+    }
+
     this.asciiCodes = asciiCodes;
   }
 
@@ -168,7 +172,7 @@ var DefaultInputs = /*#__PURE__*/function () {
   _proto.setCtrlKeys = function setCtrlKeys(ctrlKeys) {
     for (var property in this.ctrlKeys) {
       if (this.ctrlKeys.hasOwnProperty(property)) {
-        this.ctrlKeys[property] = ctrlKeys && ctrlKeys.hasOwnProperty(property) && ctrlKeys[property] ? true : false;
+        this.ctrlKeys[property] = ctrlKeys[property] ? true : false;
       }
     }
   };
@@ -188,7 +192,7 @@ var Command = /*#__PURE__*/function () {
       this.repeat = (options === null || options === void 0 ? void 0 : options.repeat) ? true : false;
       this.callback = callback;
 
-      if (options && options.hasOwnProperty("scope")) {
+      if (options === null || options === void 0 ? void 0 : options.scope) {
         this.callback = this.callback.bind(options.scope);
       }
     }
@@ -336,15 +340,9 @@ var Group = /*#__PURE__*/function () {
   };
 
   _proto.getCmd = function getCmd(name) {
-    for (var _iterator3 = _createForOfIteratorHelperLoose(this.commands), _step3; !(_step3 = _iterator3()).done;) {
-      var command = _step3.value;
-
-      if (command.name == name) {
-        return command;
-      }
-    }
-
-    return null;
+    return this.commands.find(function (command) {
+      return command.name == name;
+    }) || null;
   };
 
   Group.sortCmds = function sortCmds(commands) {
@@ -434,15 +432,9 @@ var Keyboard = /*#__PURE__*/function () {
   };
 
   _proto.getGroup = function getGroup(name) {
-    for (var _iterator3 = _createForOfIteratorHelperLoose(this.groups), _step3; !(_step3 = _iterator3()).done;) {
-      var group = _step3.value;
-
-      if (group.name === name) {
-        return group;
-      }
-    }
-
-    return null;
+    return this.groups.find(function (group) {
+      return group.name === name;
+    }) || null;
   };
 
   _proto.getCmd = function getCmd(groupName, commandName) {

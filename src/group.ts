@@ -67,12 +67,7 @@ export class Group {
   }
 
   public getCmd(name: string): Command | null {
-    for (let command of this.commands) {
-      if (command.name == name) {
-        return command;
-      }
-    }
-    return null;
+    return this.commands.find((command: Command) => command.name == name) || null;
   }
 
   // public getCommandInputs(name: string): string[] | false {
