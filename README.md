@@ -51,10 +51,10 @@ keyboard.addCmd("action0", null, [32], action0, {
 keyboard.addCmd("action1", { ctrl: true }, ["G"], action1, {groupName: "group1"});
 // set another key for action1
 keyboard.setInputs(
+  "group1",
   "action1",
   { ctrl: false, alt: false, shift: false },
-  ["Z", "T"],
-  {groupName: "group1"}
+  ["Z", "T"]
 );
 // Enable group1 commands
 keyboard.watch("group1");
@@ -84,10 +84,10 @@ keyboard.addCmd("action0", null, [32], action0, {
 keyboard.addCmd("action1", { ctrl: true }, ["G"], action1, {groupName: "group1"});
 // set another key for action1
 keyboard.setInputs(
+  "group1",
   "action1",
   { ctrl: false, alt: false, shift: false },
-  ["Z", "T"],
-  {groupName: "group1"}
+  ["Z", "T"]
 );
 // Enable group1 commands
 keyboard.watch("group1");
