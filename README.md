@@ -130,6 +130,8 @@ addCmd(
   ): Command {}
 
 setInputs(
+    groupName: string,
+    commandName: string,
     ctrlKeys: CtrlKeys,
     keys: Array<string | number>
   ): boolean {}
