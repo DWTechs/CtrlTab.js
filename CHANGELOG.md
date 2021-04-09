@@ -1,4 +1,4 @@
-# 2.4.0 (April 09th 2021)
+# 3.0.0 (April 09th 2021)
 
 - Shorter methods name (addCmd, setCmd )
 - GroupName becomes an option property and default to "default"

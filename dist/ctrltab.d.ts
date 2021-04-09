@@ -91,7 +91,7 @@ export interface Options {
     groupName?: string;
     scope?: this;
     repeat?: boolean; 
-    [key: string]: boolean | this | undefined;
+    [key: string]: string | boolean | this | undefined;
 }
 export interface Keys {
     [key: number]: Input;
