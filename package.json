@@ -1,6 +1,6 @@
 {
   "name": "@dwtechs/ctrltab",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Shortcut key bindings library with multiple keystroke detection.",
   "keywords": [
     "key binding",

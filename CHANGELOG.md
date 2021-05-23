@@ -1,3 +1,7 @@
+# 3.0.1 (May 23th 2021)
+
+- Fix scope option typing for TypeScript users.
+
 # 3.0.0 (April 09th 2021)
 
 - Shorter methods name (addCmd, setCmd )

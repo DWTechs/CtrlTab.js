@@ -89,7 +89,7 @@ export interface CtrlKeys {
 export interface Options {
     preventDefault?: boolean;
     groupName?: string;
-    scope?: this;
+    scope?: any;
     repeat?: boolean; 
     [key: string]: string | boolean | this | undefined;
 }
